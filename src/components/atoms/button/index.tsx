@@ -1,14 +1,13 @@
-import React from 'react'
+import styled from '@emotion/styled'
 
-import { styled } from '../../../config/stitches.config'
-import { color, Chromatic } from '../../../traits'
+import { Styled, HasChildren } from '../../../config'
+import { Chromatic, chromatic, Padded, padded } from '../../../traits'
 
-export const Button = styled('button', {
-  variants: {
-    ...color,
-  },
-})
+export interface ButtonProps extends Styled, HasChildren, Chromatic, Padded {}
 
-export interface ButtonProps extends Chromatic {
-  children: React.ReactNode
-}
+export const Button = styled.button<ButtonProps>(
+  ({ theme, color, padding }) => [
+    chromatic(theme, color),
+    padded(theme, padding, { x: 'medium', y: 'small' }),
+  ],
+)

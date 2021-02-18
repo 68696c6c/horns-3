@@ -3,7 +3,7 @@
 exports[`Button should render as default 1`] = `
 <div>
   <button
-    class="scid-hCFXPC"
+    class="css-7nfehv"
   >
     example
   </button>

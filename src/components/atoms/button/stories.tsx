@@ -1,10 +1,11 @@
 import React from 'react'
 import { Story, Meta } from '@storybook/react/types-6-0'
 
+import { Colorway, Size } from '../../../config'
 import { Button, ButtonProps } from '.'
 
 export default {
-  title: 'Example/Custom Button',
+  title: 'Atoms/Button',
   component: Button,
 } as Meta
 
@@ -19,12 +20,19 @@ Default.args = {
 
 export const Primary = Template.bind({})
 Primary.args = {
-  color: 'primary',
-  children: 'Button',
+  color: Colorway.Primary,
+  children: 'Primary',
 }
 
 export const Secondary = Template.bind({})
 Secondary.args = {
-  color: 'secondary',
-  children: 'Button',
+  color: Colorway.Secondary,
+  children: 'Secondary',
+}
+
+export const Mega = Template.bind({})
+Mega.args = {
+  color: Colorway.Tertiary,
+  children: 'Mega',
+  padding: Size.Giant,
 }
