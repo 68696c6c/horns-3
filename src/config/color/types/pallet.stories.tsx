@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/react/types-6-0'
 import Color from 'color'
 
 import { defaultConfig } from './config'
-import { Shades, makePallet } from './pallet'
+import { PalletShades, makePallet } from './pallet'
 
 interface ShadeProps {
   shade: Color

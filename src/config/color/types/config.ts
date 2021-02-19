@@ -1,5 +1,43 @@
 import Color from 'color'
 
+import { Colorway } from './types'
+
+export enum Mode {
+  Light = 'light',
+  Dark = 'dark',
+}
+
+export type PalletConfig = {
+  [key in Colorway]: string
+}
+
+// These template literal types exist to allow users to provide config values as strings instead of
+// enums since they won't have access to our enums.
+type ModeOption = `${Mode}`
+type ProminentOption = `${Colorway}`
+
+export interface Config {
+  mode: ModeOption
+  prominent: ProminentOption
+  pallet: Omit<PalletConfig, 'prominent'>
+  shaders: Shaders
+}
+
+export interface Shaders {
+  alpha: number
+  darkest: number
+  lightest: number
+  darker: MinMax
+  dark: MinMax
+  light: MinMax
+  lighter: MinMax
+}
+
+export interface MinMax {
+  min: number
+  max: number
+}
+
 export const hexPallet = {
   violet: '#7f00ff',
   indigo: '#3f00ff',
@@ -32,49 +70,6 @@ export const colorPallet = {
   white: Color(hexPallet.white),
   gray: Color(hexPallet.gray),
   black: Color(hexPallet.black),
-}
-
-export interface Config {
-  mode: 'light' | 'dark'
-  prominent:
-    | 'primary'
-    | 'secondary'
-    | 'tertiary'
-    | 'dark'
-    | 'neutral'
-    | 'light'
-    | 'success'
-    | 'info'
-    | 'warning'
-    | 'danger'
-  pallet: {
-    primary: string
-    secondary: string
-    tertiary: string
-    dark: string
-    neutral: string
-    light: string
-    success: string
-    info: string
-    warning: string
-    danger: string
-  }
-  shaders: Shaders
-}
-
-export interface Shaders {
-  alpha: number
-  darkest: number
-  lightest: number
-  darker: MinMax
-  dark: MinMax
-  light: MinMax
-  lighter: MinMax
-}
-
-export interface MinMax {
-  min: number
-  max: number
 }
 
 export const defaultConfig: Config = {

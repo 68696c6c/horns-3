@@ -1,35 +1,57 @@
 import Color from 'color'
 
 import { colorPallet, Config, Shaders } from './config'
-import { State, Swatch } from './path'
+import {
+  BaseColorState,
+  Colorway,
+  BaseSwatch,
+  ColorStates,
+  ColorSwatches,
+} from './types'
 
 export type Pallet = {
-  primary: Shades
-  secondary: Shades
-  tertiary: Shades
-  dark: Shades
-  neutral: Shades
-  light: Shades
-  success: Shades
-  info: Shades
-  warning: Shades
-  danger: Shades
+  [key in Colorway]: PalletShades
 }
 
-export type Shades = {
-  darker: Color
-  dark: Color
-  base: Color
-  light: Color
-  lighter: Color
+export type PalletShades = {
+  [key in Shade]: Color
+}
+
+export enum Shade {
+  Darker = 'darker',
+  Dark = 'dark',
+  Base = 'base',
+  Light = 'light',
+  Lighter = 'lighter',
+}
+
+type BaseColorStates = {
+  [key in BaseColorState]: {
+    [key in BaseSwatch]: Color
+  }
 }
 
 export const makePallet = (config: Config): Pallet => {
   const { pallet, shaders } = config
+  const primary = makeShades(pallet.primary, shaders)
+  const secondary = makeShades(pallet.secondary, shaders)
+  const tertiary = makeShades(pallet.tertiary, shaders)
+  let prominent
+  switch (config.prominent as Colorway) {
+    default:
+      prominent = primary
+      break
+    case Colorway.Secondary:
+      prominent = secondary
+      break
+    case Colorway.Tertiary:
+      prominent = tertiary
+      break
+  }
   return {
-    primary: makeShades(pallet.primary, shaders),
-    secondary: makeShades(pallet.secondary, shaders),
-    tertiary: makeShades(pallet.tertiary, shaders),
+    primary,
+    secondary,
+    tertiary,
     dark: makeDarkShades(pallet.dark, shaders),
     neutral: makeShades(pallet.neutral, shaders),
     light: makeLightShades(pallet.light, shaders),
@@ -37,10 +59,11 @@ export const makePallet = (config: Config): Pallet => {
     info: makeShades(pallet.info, shaders),
     warning: makeShades(pallet.warning, shaders),
     danger: makeShades(pallet.danger, shaders),
+    prominent,
   }
 }
 
-const makeShades = (colorValue: string, shaders: Shaders): Shades => {
+const makeShades = (colorValue: string, shaders: Shaders): PalletShades => {
   const {
     dark: darkShade,
     darker: darkerShade,
@@ -68,7 +91,7 @@ const makeShades = (colorValue: string, shaders: Shaders): Shades => {
   return { base, dark, darker, light, lighter }
 }
 
-const makeDarkShades = (colorValue: string, shaders: Shaders): Shades => {
+const makeDarkShades = (colorValue: string, shaders: Shaders): PalletShades => {
   const { lightest: lightestShade } = shaders
   const base = Color(colorValue)
   const diff = lightestShade / 4
@@ -81,7 +104,10 @@ const makeDarkShades = (colorValue: string, shaders: Shaders): Shades => {
   }
 }
 
-const makeLightShades = (colorValue: string, shaders: Shaders): Shades => {
+const makeLightShades = (
+  colorValue: string,
+  shaders: Shaders,
+): PalletShades => {
   const { darkest: darkestShade } = shaders
   const base = Color(colorValue)
   const diff = (100 - darkestShade) / 4
@@ -94,13 +120,10 @@ const makeLightShades = (colorValue: string, shaders: Shaders): Shades => {
   }
 }
 
-export type ColorStates = {
-  [key in State]: {
-    [key in Swatch]: string
-  }
-}
-
-export const makeColorway = (shades: Shades, isDark: boolean): ColorStates => {
+export const makeColorway = (
+  shades: PalletShades,
+  isDark: boolean,
+): ColorStates => {
   const { base, dark, darker, light, lighter } = shades
   if (isDark) {
     return makeColorwayStates({
@@ -117,7 +140,7 @@ export const makeColorway = (shades: Shades, isDark: boolean): ColorStates => {
   }
 }
 
-export const makeDarkColorway = (colorShades: Shades): ColorStates => {
+export const makeDarkColorway = (colorShades: PalletShades): ColorStates => {
   const { base, light, lighter } = colorShades
   return makeColorwayStates({
     base: { base, border: lighter },
@@ -126,7 +149,7 @@ export const makeDarkColorway = (colorShades: Shades): ColorStates => {
   })
 }
 
-export const makeLightColorway = (colorShades: Shades): ColorStates => {
+export const makeLightColorway = (colorShades: PalletShades): ColorStates => {
   const { base, dark, darker } = colorShades
   return makeColorwayStates({
     base: { base, border: darker },
@@ -135,18 +158,7 @@ export const makeLightColorway = (colorShades: Shades): ColorStates => {
   })
 }
 
-type BaseStates = {
-  base: BaseSwatch
-  hover: BaseSwatch
-  active: BaseSwatch
-}
-
-type BaseSwatch = {
-  base: Color
-  border: Color
-}
-
-const makeColorwayStates = (baseStates: BaseStates): ColorStates => {
+const makeColorwayStates = (baseStates: BaseColorStates): ColorStates => {
   const { base, hover, active } = baseStates
   const inactive = {
     base: base.base.mix(colorPallet.gray, 0.5),
@@ -160,7 +172,7 @@ const makeColorwayStates = (baseStates: BaseStates): ColorStates => {
   }
 }
 
-const makeSwatches = (base: Color, border: Color) => {
+const makeSwatches = (base: Color, border: Color): ColorSwatches => {
   const readable = base.isDark() ? colorPallet.white : colorPallet.black
   return {
     base: getColorValue(base),
