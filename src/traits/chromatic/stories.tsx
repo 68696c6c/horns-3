@@ -1,38 +1,56 @@
-// import React from 'react'
-// import { Story, Meta } from '@storybook/react/types-6-0'
-//
-// import { Chromatic } from '.'
-//
-// interface ChromaticDemoProps {
-//   children: React.ReactNode
-// }
-//
-// const Tone: React.FC<ChromaticDemoProps> = ({ children, ...others }) => (
-//   <div {...others}>{children}</div>
-// )
-//
-// export default {
-//   title: 'Traits/Chromatic',
-//   component: Button,
-// } as Meta
-//
-// const Template: Story<ButtonProps> = ({ children, ...others }) => (
-//   <Button {...others}>{children}</Button>
-// )
-//
-// export const Default = Template.bind({})
-// Default.args = {
-//   children: 'Default',
-// }
-//
-// export const Primary = Template.bind({})
-// Primary.args = {
-//   color: 'primary',
-//   children: 'Button',
-// }
-//
-// export const Secondary = Template.bind({})
-// Secondary.args = {
-//   color: 'secondary',
-//   children: 'Button',
-// }
+import React, { Fragment } from 'react'
+import styled from '@emotion/styled'
+import { Meta, Story } from '@storybook/react/types-6-0'
+
+import { Colorway, HasChildren, Styled } from '../../config'
+import { chromatic, Chromatic } from '.'
+
+interface ChromaticDemoProps extends Styled, HasChildren, Chromatic {
+  children: React.ReactNode
+}
+
+const ChromaticDemo = styled.div<ChromaticDemoProps>(({ theme, color }) =>
+  chromatic(theme, color),
+)
+
+export default {
+  title: 'Traits/Chromatic',
+  component: ChromaticDemo,
+} as Meta
+
+const Template: Story<ChromaticDemoProps> = (props) => (
+  <Fragment>
+    <ChromaticDemo {...props} color={Colorway.Primary}>
+      Primary
+    </ChromaticDemo>
+    <ChromaticDemo {...props} color={Colorway.Secondary}>
+      Secondary
+    </ChromaticDemo>
+    <ChromaticDemo {...props} color={Colorway.Tertiary}>
+      Tertiary
+    </ChromaticDemo>
+    <ChromaticDemo {...props} color={Colorway.Dark}>
+      Dark
+    </ChromaticDemo>
+    <ChromaticDemo {...props} color={Colorway.Neutral}>
+      Neutral
+    </ChromaticDemo>
+    <ChromaticDemo {...props} color={Colorway.Light}>
+      Light
+    </ChromaticDemo>
+    <ChromaticDemo {...props} color={Colorway.Success}>
+      Success
+    </ChromaticDemo>
+    <ChromaticDemo {...props} color={Colorway.Info}>
+      Info
+    </ChromaticDemo>
+    <ChromaticDemo {...props} color={Colorway.Warning}>
+      Warning
+    </ChromaticDemo>
+    <ChromaticDemo {...props} color={Colorway.Danger}>
+      Danger
+    </ChromaticDemo>
+  </Fragment>
+)
+
+export const Default = Template.bind({})
