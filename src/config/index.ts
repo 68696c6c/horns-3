@@ -1,3 +1,4 @@
-export { Colorway } from './color'
+export { Breakpoint } from './breakpoints'
+export { Colorway } from './colors'
 export { Styled, HasChildren, Theme } from './theme'
-export { Size } from './size'
+export { Size } from './sizes'

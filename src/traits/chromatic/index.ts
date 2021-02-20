@@ -7,7 +7,7 @@ export interface Chromatic {
 }
 
 export const chromatic = (theme: Theme, color?: Colorway): SerializedStyles => {
-  const { base } = theme.color.colorways[color || Colorway.Neutral]
+  const { base } = theme.colors.colorways[color || Colorway.Neutral]
   return css`
     border-color: ${base.border};
     background-color: ${base.base};

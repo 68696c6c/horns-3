@@ -12,11 +12,13 @@ export enum Size {
   Max = 'max',
 }
 
-export type SizeConfig = {
+export type SizeOption = `${Size}`
+
+export type SizesConfig = {
   [key in Size]: string
 }
 
-export const defaultSize: SizeConfig = {
+export const defaultSizes: SizesConfig = {
   min: '0px',
   tiny: '2px',
   xxSmall: '4px',

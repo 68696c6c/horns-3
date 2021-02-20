@@ -1,21 +1,21 @@
 import Color from 'color'
 
 import { defaultConfig } from './types'
-import { ColorConfig } from '.'
+import { Colors } from '.'
 
-describe('ColorConfig', () => {
+describe('Colors', () => {
   it('should use default values if no config is provided', () => {
-    const result = new ColorConfig()
+    const result = new Colors()
     expect(result.config).toEqual(defaultConfig)
   })
 
   it('should use default values if an empty config is provided', () => {
-    const result = new ColorConfig({})
+    const result = new Colors({})
     expect(result.config).toEqual(defaultConfig)
   })
 
   it('should merge provided config values with defaults', () => {
-    const { config: result } = new ColorConfig({
+    const { config: result } = new Colors({
       mode: 'dark',
       pallet: {
         primary: 'orange',
@@ -38,13 +38,13 @@ describe('ColorConfig', () => {
   })
 
   it('should use dark background colors if mode is set to "dark"', () => {
-    const config = new ColorConfig({ mode: 'dark' })
+    const config = new Colors({ mode: 'dark' })
     const result = config.backgrounds.primary.base.base
     expect(Color(result).isDark()).toBe(true)
   })
 
   it('should use light background colors if mode is set to "light"', () => {
-    const config = new ColorConfig({ mode: 'light' })
+    const config = new Colors({ mode: 'light' })
     const result = config.backgrounds.primary.base.base
     expect(Color(result).isDark()).toBe(false)
   })

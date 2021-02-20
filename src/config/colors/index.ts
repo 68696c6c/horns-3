@@ -14,13 +14,15 @@ import {
 
 export { Colorway, Background } from './types'
 
-export class ColorConfig {
+export type ColorsConfig = DeepPartial<Config>
+
+export class Colors {
   public readonly isDarkMode: boolean
   public readonly config: Config
   public readonly colorways: Colorways
   public readonly backgrounds: Backgrounds
 
-  constructor(config?: DeepPartial<Config>) {
+  constructor(config?: ColorsConfig) {
     this.config = _merge(defaultConfig, config)
     this.isDarkMode = this.config.mode == Mode.Dark
 
