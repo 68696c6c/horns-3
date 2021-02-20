@@ -3,7 +3,6 @@ import { render } from '@testing-library/react'
 
 import { theme } from '../../test'
 import { Stack } from '.'
-import { Breakpoint } from '../../../config'
 
 describe('Stack', () => {
   it('should render as default', () => {
