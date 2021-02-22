@@ -10,6 +10,7 @@ const external = [
 
 const plugins = [
   typescript({
+    // eslint-disable-next-line global-require
     typescript: require('typescript'),
   }),
 ]

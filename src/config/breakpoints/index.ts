@@ -24,10 +24,15 @@ export const defaultConfig: BreakpointsConfig = {
 
 export class Breakpoints {
   mobile: string
+
   min: string
+
   small: string
+
   medium: string
+
   large: string
+
   max: string
 
   constructor(config?: Partial<BreakpointsConfig>) {

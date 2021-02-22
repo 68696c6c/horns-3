@@ -9,6 +9,7 @@ export default {
   component: Button,
 } as Meta
 
+// eslint-disable-next-line react/prop-types
 const Template: Story<ButtonProps> = ({ children, ...others }) => (
   <Button {...others}>{children}</Button>
 )

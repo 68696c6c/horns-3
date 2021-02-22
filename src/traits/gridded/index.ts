@@ -17,12 +17,8 @@ export const gridded = (
       display: grid;
     `
   }
-  let gapValue = null
-  if (gapped) {
-    gapValue = gap ? theme.sizes[gap] : theme.grid.gap
-  }
   return css`
     display: grid;
-    grid-gap: ${gapValue};
+    grid-gap: ${gapped && gap ? theme.sizes[gap] : theme.grid.gap};
   `
 }

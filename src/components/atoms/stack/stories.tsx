@@ -1,7 +1,8 @@
-import React, { Fragment } from 'react'
+/* eslint-disable react/jsx-one-expression-per-line */
+import React from 'react'
 import { Story, Meta } from '@storybook/react/types-6-0'
 
-import { Breakpoint, Size } from '../../../config'
+import { Breakpoint } from '../../../config'
 import { Stack, StackProps } from '.'
 
 export default {
@@ -9,22 +10,25 @@ export default {
   component: Stack,
 } as Meta
 
-const Template: Story<StackProps> = ({ breakpoint, children, ...others }) => (
-  <Fragment>
+// eslint-disable-next-line react/prop-types
+const Template: Story<StackProps> = ({ theme, breakpoint, children }) => (
+  <>
     <p>Above the {breakpoint} breakpoint, these items will stack.</p>
-    <Stack {...others}>{children}</Stack>
-  </Fragment>
+    <Stack theme={theme} breakpoint={breakpoint}>
+      {children}
+    </Stack>
+  </>
 )
 
 export const Default = Template.bind({})
 Default.args = {
   breakpoint: Breakpoint.Mobile,
   children: (
-    <Fragment>
+    <>
       <div>one</div>
       <div>two</div>
       <div>three</div>
-    </Fragment>
+    </>
   ),
 }
 

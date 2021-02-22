@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import React from 'react'
 import { ThemeProvider } from '@storybook/theming'
 
-import { Theme } from '../src/config/theme'
+import { Theme } from '../src/config'
 
 export const decorators = [
   (Story) => (

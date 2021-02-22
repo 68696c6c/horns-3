@@ -26,41 +26,53 @@ export enum Shade {
 }
 
 type BaseColorStates = {
-  [key in BaseColorState]: {
-    [key in BaseSwatch]: Color
+  [stateKey in BaseColorState]: {
+    [swatchKey in BaseSwatch]: Color
   }
 }
 
-export const makePallet = (config: Config): Pallet => {
-  const { pallet, shaders } = config
-  const primary = makeShades(pallet.primary, shaders)
-  const secondary = makeShades(pallet.secondary, shaders)
-  const tertiary = makeShades(pallet.tertiary, shaders)
-  let prominent
-  switch (config.prominent as Colorway) {
-    default:
-      prominent = primary
-      break
-    case Colorway.Secondary:
-      prominent = secondary
-      break
-    case Colorway.Tertiary:
-      prominent = tertiary
-      break
+const getColorValue = (c: Color): string => c.rgb().string()
+
+const makeSwatches = (base: Color, border: Color): ColorSwatches => {
+  const readable = base.isDark() ? colorPallet.white : colorPallet.black
+  return {
+    base: getColorValue(base),
+    readable: getColorValue(readable),
+    border: getColorValue(border),
+  }
+}
+
+const makeColorwayStates = (baseStates: BaseColorStates): ColorStates => {
+  const { base, hover, active } = baseStates
+  const inactive = {
+    base: base.base.mix(colorPallet.gray, 0.5),
+    border: base.base.mix(colorPallet.gray, 0.7),
   }
   return {
-    primary,
-    secondary,
-    tertiary,
-    dark: makeDarkShades(pallet.dark, shaders),
-    neutral: makeShades(pallet.neutral, shaders),
-    light: makeLightShades(pallet.light, shaders),
-    success: makeShades(pallet.success, shaders),
-    info: makeShades(pallet.info, shaders),
-    warning: makeShades(pallet.warning, shaders),
-    danger: makeShades(pallet.danger, shaders),
-    prominent,
+    base: makeSwatches(base.base, base.border),
+    hover: makeSwatches(hover.base, hover.border),
+    active: makeSwatches(active.base, active.border),
+    inactive: makeSwatches(inactive.base, inactive.border),
   }
+}
+
+export const makeColorway = (
+  shades: PalletShades,
+  isDark: boolean,
+): ColorStates => {
+  const { base, dark, darker, light, lighter } = shades
+  if (isDark) {
+    return makeColorwayStates({
+      base: { base, border: light },
+      hover: { base: light, border: base },
+      active: { base: lighter, border: light },
+    })
+  }
+  return makeColorwayStates({
+    base: { base, border: dark },
+    hover: { base: dark, border: base },
+    active: { base: darker, border: dark },
+  })
 }
 
 const makeShades = (colorValue: string, shaders: Shaders): PalletShades => {
@@ -120,23 +132,35 @@ const makeLightShades = (
   }
 }
 
-export const makeColorway = (
-  shades: PalletShades,
-  isDark: boolean,
-): ColorStates => {
-  const { base, dark, darker, light, lighter } = shades
-  if (isDark) {
-    return makeColorwayStates({
-      base: { base, border: light },
-      hover: { base: light, border: base },
-      active: { base: lighter, border: light },
-    })
-  } else {
-    return makeColorwayStates({
-      base: { base, border: dark },
-      hover: { base: dark, border: base },
-      active: { base: darker, border: dark },
-    })
+export const makePallet = (config: Config): Pallet => {
+  const { pallet, shaders } = config
+  const primary = makeShades(pallet.primary, shaders)
+  const secondary = makeShades(pallet.secondary, shaders)
+  const tertiary = makeShades(pallet.tertiary, shaders)
+  let prominent
+  switch (config.prominent as Colorway) {
+    default:
+      prominent = primary
+      break
+    case Colorway.Secondary:
+      prominent = secondary
+      break
+    case Colorway.Tertiary:
+      prominent = tertiary
+      break
+  }
+  return {
+    primary,
+    secondary,
+    tertiary,
+    dark: makeDarkShades(pallet.dark, shaders),
+    neutral: makeShades(pallet.neutral, shaders),
+    light: makeLightShades(pallet.light, shaders),
+    success: makeShades(pallet.success, shaders),
+    info: makeShades(pallet.info, shaders),
+    warning: makeShades(pallet.warning, shaders),
+    danger: makeShades(pallet.danger, shaders),
+    prominent,
   }
 }
 
@@ -157,28 +181,3 @@ export const makeLightColorway = (colorShades: PalletShades): ColorStates => {
     active: { base: darker, border: dark },
   })
 }
-
-const makeColorwayStates = (baseStates: BaseColorStates): ColorStates => {
-  const { base, hover, active } = baseStates
-  const inactive = {
-    base: base.base.mix(colorPallet.gray, 0.5),
-    border: base.base.mix(colorPallet.gray, 0.7),
-  }
-  return {
-    base: makeSwatches(base.base, base.border),
-    hover: makeSwatches(hover.base, hover.border),
-    active: makeSwatches(active.base, active.border),
-    inactive: makeSwatches(inactive.base, inactive.border),
-  }
-}
-
-const makeSwatches = (base: Color, border: Color): ColorSwatches => {
-  const readable = base.isDark() ? colorPallet.white : colorPallet.black
-  return {
-    base: getColorValue(base),
-    readable: getColorValue(readable),
-    border: getColorValue(border),
-  }
-}
-
-const getColorValue = (c: Color): string => c.rgb().string()

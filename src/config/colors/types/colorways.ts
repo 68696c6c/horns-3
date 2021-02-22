@@ -16,7 +16,7 @@ export type Backgrounds = {
 }
 
 export const makeColorways = (pallet: Pallet, config: Config): Colorways => {
-  const isDark = config.mode == Mode.Dark
+  const isDark = config.mode === Mode.Dark
   return {
     primary: makeColorway(pallet.primary, isDark),
     secondary: makeColorway(pallet.secondary, isDark),
@@ -36,7 +36,7 @@ export const makeBackgrounds = (
   pallet: Pallet,
   config: Config,
 ): Backgrounds => {
-  const isDark = config.mode == Mode.Dark
+  const isDark = config.mode === Mode.Dark
   if (isDark) {
     return {
       primary: makeDarkColorway(pallet.dark),

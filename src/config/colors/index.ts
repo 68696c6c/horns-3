@@ -18,13 +18,16 @@ export type ColorsConfig = DeepPartial<Config>
 
 export class Colors {
   public readonly isDarkMode: boolean
+
   public readonly config: Config
+
   public readonly colorways: Colorways
+
   public readonly backgrounds: Backgrounds
 
   constructor(config?: ColorsConfig) {
     this.config = _merge(defaultConfig, config)
-    this.isDarkMode = this.config.mode == Mode.Dark
+    this.isDarkMode = this.config.mode === Mode.Dark
 
     const pallet = makePallet(this.config)
     this.colorways = makeColorways(pallet, this.config)

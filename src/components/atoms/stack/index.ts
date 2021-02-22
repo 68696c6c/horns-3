@@ -1,8 +1,9 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
-import { Styled, HasChildren } from '../../../config'
 import {
+  Styled,
+  Component,
   gridded,
   padded,
   responsive,
@@ -13,7 +14,7 @@ import {
 
 export interface StackProps
   extends Styled,
-    HasChildren,
+    Component,
     Gridded,
     Padded,
     Responsive {}

@@ -25,7 +25,6 @@ interface Sides {
 }
 
 const evalSides = (options: PaddingOptions = {}): Sides => {
-  console.log(options)
   const { all, x, y, top, bottom, left, right } = options
   return {
     top: (top || y || all) as Size,

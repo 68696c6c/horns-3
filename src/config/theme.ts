@@ -1,18 +1,9 @@
-import { ReactNode } from 'react'
 import _merge from 'lodash.merge'
 
 import { Breakpoints, BreakpointsConfig } from './breakpoints'
 import { Colors, ColorsConfig } from './colors'
 import { GridConfig, defaultGrid } from './grid'
 import { SizesConfig, defaultSizes } from './sizes'
-
-export interface Styled {
-  theme: Theme
-}
-
-export interface HasChildren {
-  children: ReactNode
-}
 
 interface Config {
   name?: string
@@ -24,9 +15,13 @@ interface Config {
 
 export class Theme {
   name: string
+
   breakpoints: Breakpoints
+
   colors: Colors
+
   grid: GridConfig
+
   sizes: SizesConfig
 
   constructor(themeConfig?: Partial<Config>) {

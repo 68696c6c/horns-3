@@ -19,7 +19,7 @@ export default {
 } as Meta
 
 const Template: Story<ChromaticDemoProps> = (props) => (
-  <Fragment>
+  <>
     <ChromaticDemo {...props} color={Colorway.Primary}>
       Primary
     </ChromaticDemo>
@@ -50,7 +50,7 @@ const Template: Story<ChromaticDemoProps> = (props) => (
     <ChromaticDemo {...props} color={Colorway.Danger}>
       Danger
     </ChromaticDemo>
-  </Fragment>
+  </>
 )
 
 export const Default = Template.bind({})

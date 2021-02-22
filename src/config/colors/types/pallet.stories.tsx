@@ -10,7 +10,7 @@ interface ShadeProps {
   name: string
 }
 
-const Shade: FC<ShadeProps> = ({ shade, name }) => (
+const Shade: FC<ShadeProps> = ({ shade, name }: ShadeProps) => (
   <div
     style={{
       backgroundColor: shade.rgb().string(),
@@ -23,11 +23,14 @@ const Shade: FC<ShadeProps> = ({ shade, name }) => (
 )
 
 interface ColorShadesProps {
-  shades: Shades
+  shades: PalletShades
   name: string
 }
 
-const ColorShades: FC<ColorShadesProps> = ({ shades, name }) => (
+const ColorShades: FC<ColorShadesProps> = ({
+  shades,
+  name,
+}: ColorShadesProps) => (
   <div>
     <Shade shade={shades.darker} name={`${name}.darker`} />
     <Shade shade={shades.dark} name={`${name}.dark`} />
@@ -41,10 +44,10 @@ interface PalletProps {
   variant: 'brand' | 'neutral' | 'action'
 }
 
-const Pallet: FC<PalletProps> = ({ variant }) => {
+const Pallet: FC<PalletProps> = ({ variant }: PalletProps) => {
   const pallet = makePallet(defaultConfig)
   switch (variant) {
-    case 'brand':
+    default:
       return (
         <div>
           <ColorShades shades={pallet.primary} name="primary" />
@@ -77,7 +80,7 @@ export default {
   component: Pallet,
 } as Meta
 
-const Template: Story<PalletProps> = ({ variant }) => (
+const Template: Story<PalletProps> = ({ variant }: PalletProps) => (
   <Pallet variant={variant} />
 )
 
