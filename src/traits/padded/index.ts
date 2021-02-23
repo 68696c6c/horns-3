@@ -1,54 +1,45 @@
 import _merge from 'lodash.merge'
 import { css, SerializedStyles } from '@emotion/react'
 
-import { Theme, Size } from '../../config'
+import { Theme, Size, SizeOption, SideSizeOptions, Side } from '../../config'
 
-export interface Padded {
-  padding?: PaddingOptions | Size
+export type Sides = {
+  [key in Side]: Size | undefined
 }
 
-export interface PaddingOptions {
-  all?: string
-  x?: string
-  y?: string
-  top?: string
-  bottom?: string
-  left?: string
-  right?: string
-}
-
-interface Sides {
-  top: Size
-  right: Size
-  bottom: Size
-  left: Size
-}
-
-const evalSides = (options: PaddingOptions = {}): Sides => {
+export const evalSides = (options: Partial<SideSizeOptions>): Sides => {
   const { all, x, y, top, bottom, left, right } = options
   return {
-    top: (top || y || all) as Size,
-    right: (right || x || all) as Size,
-    bottom: (bottom || y || all) as Size,
-    left: (left || x || all) as Size,
+    top: top || y || all,
+    right: right || x || all,
+    bottom: bottom || y || all,
+    left: left || x || all,
   }
+}
+
+export interface Padded {
+  padding?: SideSizeOptions | SizeOption
 }
 
 export const padded = (
   theme: Theme,
-  padding?: PaddingOptions | string,
-  defaults?: PaddingOptions,
+  padding?: SideSizeOptions | SizeOption,
+  defaults?: SideSizeOptions,
 ): SerializedStyles => {
-  if (typeof padding === 'string') {
+  if (typeof padding === 'undefined' && typeof defaults === 'undefined') {
+    return css``
+  }
+  const paddingSize = theme.sizes[padding as Size]
+  if (paddingSize) {
     return css`
-      padding: ${theme.sizes[padding as Size]};
+      padding: ${paddingSize};
     `
   }
-  const sides = evalSides(_merge(padding, defaults) || {})
+  const sides = evalSides(_merge(padding || {}, defaults || {}))
   return css`
-    padding-top: ${theme.sizes[sides.top]};
-    padding-right: ${theme.sizes[sides.right]};
-    padding-bottom: ${theme.sizes[sides.bottom]};
-    padding-left: ${theme.sizes[sides.left]};
+    padding-top: ${sides.top && theme.sizes[sides.top]};
+    padding-right: ${sides.right && theme.sizes[sides.right]};
+    padding-bottom: ${sides.bottom && theme.sizes[sides.bottom]};
+    padding-left: ${sides.left && theme.sizes[sides.left]};
   `
 }

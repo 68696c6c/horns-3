@@ -1,5 +1,6 @@
 import _merge from 'lodash.merge'
 
+import { ButtonsConfig, defaultButtons } from './buttons'
 import { Breakpoints, BreakpointsConfig } from './breakpoints'
 import { Colors, ColorsConfig } from './colors'
 import { GridConfig, defaultGrid } from './grid'
@@ -7,6 +8,7 @@ import { SizesConfig, defaultSizes } from './sizes'
 
 interface Config {
   name?: string
+  buttons?: ButtonsConfig
   breakpoints?: BreakpointsConfig
   colors?: ColorsConfig
   grid?: Partial<GridConfig>
@@ -15,6 +17,8 @@ interface Config {
 
 export class Theme {
   name: string
+
+  buttons: ButtonsConfig
 
   breakpoints: Breakpoints
 
@@ -33,5 +37,6 @@ export class Theme {
     this.colors = new Colors(config.colors)
     this.sizes = _merge(defaultSizes, config.sizes)
     this.grid = _merge(defaultGrid, config.grid)
+    this.buttons = _merge(defaultButtons, config.buttons)
   }
 }

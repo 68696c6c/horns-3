@@ -1,3 +1,5 @@
+import { SideOption } from '../utils'
+
 export enum Size {
   Min = 'min',
   Tiny = 'tiny',
@@ -16,6 +18,10 @@ export type SizeOption = `${Size}`
 
 export type SizesConfig = {
   [key in Size]: string
+}
+
+export type SideSizeOptions = {
+  [key in SideOption]?: Size
 }
 
 export const defaultSizes: SizesConfig = {

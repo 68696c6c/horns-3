@@ -1,19 +1,12 @@
 import styled from '@emotion/styled'
 
-import {
-  Styled,
-  Component,
-  Chromatic,
-  chromatic,
-  Padded,
-  padded,
-} from '../../../traits'
-
-export interface ButtonProps extends Styled, Component, Chromatic, Padded {}
+import { bordered, chromatic, padded } from '../../../traits'
+import { ButtonProps } from '../utils'
 
 export const Button = styled.button<ButtonProps>(
-  ({ theme, color, padding }) => [
+  ({ theme, border, color, padding }) => [
     chromatic(theme, color),
-    padded(theme, padding, { x: 'medium', y: 'small' }),
+    bordered(theme, border, theme.buttons.border),
+    padded(theme, padding, theme.buttons.padding),
   ],
 )

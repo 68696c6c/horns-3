@@ -1,16 +1,16 @@
 import React from 'react'
 import { Story, Meta } from '@storybook/react/types-6-0'
 
-import { Colorway, Size } from '../../../config'
-import { Button, ButtonProps } from '.'
+import { BorderStyle, Colorway, Size } from '../../../config'
+import { ButtonProps } from '../utils'
+import { Button } from '.'
 
 export default {
   title: 'Atoms/Button',
   component: Button,
 } as Meta
 
-// eslint-disable-next-line react/prop-types
-const Template: Story<ButtonProps> = ({ children, ...others }) => (
+const Template: Story<ButtonProps> = ({ children, ...others }: ButtonProps) => (
   <Button {...others}>{children}</Button>
 )
 
@@ -36,4 +36,18 @@ Mega.args = {
   color: Colorway.Tertiary,
   children: 'Mega',
   padding: Size.Giant,
+}
+
+export const Bordered = Template.bind({})
+Bordered.args = {
+  color: Colorway.Primary,
+  children: 'Bordered',
+  border: { width: Size.Small, style: BorderStyle.Groove },
+}
+
+export const SingleBordered = Template.bind({})
+SingleBordered.args = {
+  color: Colorway.Secondary,
+  children: 'Bottom Bordered',
+  border: { bottom: { width: Size.Small, style: BorderStyle.Dotted } },
 }
