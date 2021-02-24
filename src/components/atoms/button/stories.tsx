@@ -2,6 +2,8 @@ import React from 'react'
 import { Story, Meta } from '@storybook/react/types-6-0'
 
 import { BorderStyle, Colorway, Size } from '../../../config'
+import { chromaticDemo } from '../../../traits/chromatic/demo'
+import { paddedDemo } from '../../../traits/padded/demo'
 import { ButtonProps } from '../utils'
 import { Button } from '.'
 
@@ -19,17 +21,11 @@ Default.args = {
   children: 'Default',
 }
 
-export const Primary = Template.bind({})
-Primary.args = {
-  color: Colorway.Primary,
-  children: 'Primary',
-}
+export const Colorways = (props: React.PropsWithoutRef<ButtonProps>) =>
+  chromaticDemo(Button, props)
 
-export const Secondary = Template.bind({})
-Secondary.args = {
-  color: Colorway.Secondary,
-  children: 'Secondary',
-}
+export const Padding = (props: React.PropsWithoutRef<ButtonProps>) =>
+  paddedDemo(Button, props)
 
 export const Mega = Template.bind({})
 Mega.args = {
