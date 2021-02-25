@@ -6,7 +6,7 @@ import { Colors, ColorsConfig } from './colors'
 import { GridConfig, defaultGrid } from './grid'
 import { SizesConfig, defaultSizes } from './sizes'
 
-interface Config {
+export interface Config {
   name?: string
   buttons?: ButtonsConfig
   breakpoints?: BreakpointsConfig

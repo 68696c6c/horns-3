@@ -1,1 +1,2 @@
-export { Button } from './components'
+export { Button, ThemeProvider } from './components'
+export { Theme, Config } from './config'
