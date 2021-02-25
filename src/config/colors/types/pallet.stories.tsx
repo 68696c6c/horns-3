@@ -80,21 +80,12 @@ export default {
   component: Pallet,
 } as Meta
 
-const Template: Story<PalletProps> = ({ variant }: PalletProps) => (
-  <Pallet variant={variant} />
+const PalletStory: Story = () => (
+  <div>
+    <Pallet variant="brand" />
+    <Pallet variant="neutral" />
+    <Pallet variant="action" />
+  </div>
 )
 
-export const Brand = Template.bind({})
-Brand.args = {
-  variant: 'brand',
-}
-
-export const Neutral = Template.bind({})
-Neutral.args = {
-  variant: 'neutral',
-}
-
-export const Action = Template.bind({})
-Action.args = {
-  variant: 'action',
-}
+export { PalletStory as Pallet }

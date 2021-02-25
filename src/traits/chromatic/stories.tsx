@@ -1,22 +1,22 @@
-import React from 'react'
 import styled from '@emotion/styled'
-import { Meta } from '@storybook/react/types-6-0'
+import { Meta, Story } from '@storybook/react/types-6-0'
 
 import { chromaticDemo } from '../../_story'
 import { Styled, Component } from '../styled'
 
-import { chromatic, Chromatic } from '.'
+import { chromatic, Chromatic as ChromaticTrait } from '.'
 
-interface ChromaticDemoProps extends Styled, Component, Chromatic {}
+interface ChromaticDemoProps extends Styled, Component, ChromaticTrait {}
 
-const ChromaticDemo = styled.div<ChromaticDemoProps>(({ theme, color }) =>
+const Chromatic = styled.div<ChromaticDemoProps>(({ theme, color }) =>
   chromatic(theme, color),
 )
 
 export default {
   title: 'Traits/Chromatic',
-  component: ChromaticDemo,
+  component: Chromatic,
 } as Meta
 
-export const Colorways = (props: React.PropsWithoutRef<ChromaticDemoProps>) =>
-  chromaticDemo(ChromaticDemo, props)
+const ChromaticStory: Story = () => chromaticDemo(Chromatic, {})
+
+export { ChromaticStory as Chromatic }

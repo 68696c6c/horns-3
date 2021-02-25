@@ -22,17 +22,33 @@ export const borderedDemo = <T extends {}>(
 ) => (
   <Demo>
     <h1>bordered</h1>
+    <h2>style</h2>
     <StyledDemo>
-      <C {...props} border={undefined}>
+      <C {...props} border={{ all: { width: 'small' } }}>
         default
       </C>
       {Object.values(BorderStyle).map((style) => (
         <C
           {...props}
           border={{ all: { width: 'small', style } }}
-          key={`border-${style}`}
+          key={`border-style-${style}`}
         >
           {style}
+        </C>
+      ))}
+    </StyledDemo>
+    <h2>width</h2>
+    <StyledDemo>
+      <C {...props} border={{ all: { width: 'small' } }}>
+        default
+      </C>
+      {Object.values(Size).map((size) => (
+        <C
+          {...props}
+          border={{ all: { width: size, style: 'solid' } }}
+          key={`border-width-${size}`}
+        >
+          {size}
         </C>
       ))}
     </StyledDemo>
