@@ -1,11 +1,9 @@
-import React from 'react'
+import React, { FC, ReactNode, ElementType, PropsWithoutRef } from 'react'
 import styled from '@emotion/styled'
 
 import { BorderStyle, Colorway, Size } from '../config'
 
-const StyledDemo = styled.div``
-
-const StyledDemoContent = styled.div`
+const StyledDemo = styled.div`
   display: flex;
   grid-gap: 1em;
   flex-wrap: wrap;
@@ -13,20 +11,18 @@ const StyledDemoContent = styled.div`
 `
 
 interface DemoProps {
-  children: React.ReactNode
+  children: ReactNode
 }
 
-const Demo: React.FC<DemoProps> = ({ children }: DemoProps) => (
-  <StyledDemo>{children}</StyledDemo>
-)
+const Demo: FC<DemoProps> = ({ children }: DemoProps) => <div>{children}</div>
 
 export const borderedDemo = <T extends {}>(
-  C: React.ElementType,
-  props: React.PropsWithoutRef<T>,
+  C: ElementType,
+  props: PropsWithoutRef<T>,
 ) => (
   <Demo>
     <h1>bordered</h1>
-    <StyledDemoContent>
+    <StyledDemo>
       <C {...props} border={undefined}>
         default
       </C>
@@ -39,17 +35,17 @@ export const borderedDemo = <T extends {}>(
           {style}
         </C>
       ))}
-    </StyledDemoContent>
+    </StyledDemo>
   </Demo>
 )
 
 export const chromaticDemo = <T extends {}>(
-  C: React.ElementType,
-  props: React.PropsWithoutRef<T>,
+  C: ElementType,
+  props: PropsWithoutRef<T>,
 ) => (
   <Demo>
     <h1>chromatic</h1>
-    <StyledDemoContent>
+    <StyledDemo>
       <C {...props} color={undefined}>
         default
       </C>
@@ -58,17 +54,17 @@ export const chromaticDemo = <T extends {}>(
           {color}
         </C>
       ))}
-    </StyledDemoContent>
+    </StyledDemo>
   </Demo>
 )
 
 export const paddedDemo = <T extends {}>(
-  C: React.ElementType,
-  props: React.PropsWithoutRef<T>,
+  C: ElementType,
+  props: PropsWithoutRef<T>,
 ) => (
   <Demo>
     <h1>padded</h1>
-    <StyledDemoContent>
+    <StyledDemo>
       <C {...props} padding={undefined}>
         default
       </C>
@@ -77,13 +73,13 @@ export const paddedDemo = <T extends {}>(
           {size}
         </C>
       ))}
-    </StyledDemoContent>
+    </StyledDemo>
   </Demo>
 )
 
 export const clickableButtonDemo = <T extends {}>(
-  C: React.ElementType,
-  props: React.PropsWithoutRef<T>,
+  C: ElementType,
+  props: PropsWithoutRef<T>,
 ) => (
   <>
     {borderedDemo(C, props)}
@@ -93,6 +89,6 @@ export const clickableButtonDemo = <T extends {}>(
 )
 
 export const clickableLinkDemo = <T extends {}>(
-  C: React.ElementType,
-  props: React.PropsWithoutRef<T>,
+  C: ElementType,
+  props: PropsWithoutRef<T>,
 ) => chromaticDemo(C, props)
