@@ -1,0 +1,14 @@
+.idea
+.storybook
+coverage
+src
+**/stories.d.ts
+**/*.test.d.ts
+**/test.d.ts
+.eslintignore
+.eslintrc.js
+jest.config.js
+jest.setup.ts
+rollup.config.js
+tsconfig.json
+yarn-error.log
