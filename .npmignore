@@ -2,6 +2,7 @@
 .storybook
 coverage
 src
+dist/src/_story
 **/stories.d.ts
 **/*.test.d.ts
 **/test.d.ts
@@ -9,6 +10,7 @@ src
 .eslintrc.js
 jest.config.js
 jest.setup.ts
+dist/jest.setup.d.ts
 rollup.config.js
 tsconfig.json
 yarn-error.log

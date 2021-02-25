@@ -7,6 +7,7 @@ import {
   bordered,
   Chromatic,
   chromatic,
+  chromaticText,
   Padded,
   padded,
 } from '../../../traits'
@@ -18,11 +19,18 @@ export interface ButtonProps
     Chromatic,
     Padded {}
 
-export interface BaseLinkProps extends ButtonProps {
-  variant?: 'link' | 'button'
+export enum LinkVariant {
+  Link = 'link',
+  Button = 'button',
 }
 
-export const Link = styled.a<BaseLinkProps>``
+export interface BaseLinkProps extends ButtonProps {
+  variant?: LinkVariant
+}
+
+export const Link = styled.a<BaseLinkProps>(({ theme, color }) => [
+  chromaticText(theme, color),
+])
 
 export const LinkButton = styled.a<ButtonProps>(
   ({ theme, border, color, padding }) => [

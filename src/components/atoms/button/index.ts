@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 
 import { bordered, chromatic, padded } from '../../../traits'
-import { ButtonProps } from '../utils'
+import { ButtonProps } from '../../quarks'
 
 export const Button = styled.button<ButtonProps>(
   ({ theme, border, color, padding }) => [

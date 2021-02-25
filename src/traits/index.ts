@@ -1,9 +1,10 @@
 export { bordered, Bordered } from './bordered'
 export {
-  chromatic,
   Chromatic,
-  chromaticSurface,
+  chromatic,
+  chromaticText,
   ChromaticSurface,
+  chromaticSurface,
 } from './chromatic'
 export { Component } from './component'
 export { contained, Contained } from './contained'

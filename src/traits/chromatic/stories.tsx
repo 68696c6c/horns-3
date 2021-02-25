@@ -2,9 +2,9 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { Meta } from '@storybook/react/types-6-0'
 
+import { chromaticDemo } from '../../_story'
 import { Component } from '../component'
 import { Styled } from '../styled'
-import { chromaticDemo } from './demo'
 import { chromatic, Chromatic } from '.'
 
 interface ChromaticDemoProps extends Styled, Component, Chromatic {

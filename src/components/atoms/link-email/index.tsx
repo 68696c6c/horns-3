@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-import { BaseLinkProps, LinkButton, Link } from '../utils'
+import { BaseLinkProps, LinkButton, Link } from '../../quarks'
 
 const getEmailHref = (email: string, subject: string, body: string): string => {
   let href = `mailto:${email}?`

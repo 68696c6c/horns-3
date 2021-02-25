@@ -15,6 +15,17 @@ export const chromatic = (theme: Theme, color?: Colorway): SerializedStyles => {
   `
 }
 
+export const chromaticText = (
+  theme: Theme,
+  color?: Colorway,
+): SerializedStyles => {
+  const defaultColor = theme.colors.isDarkMode ? Colorway.Light : Colorway.Dark
+  const { base } = theme.colors.colorways[color || defaultColor]
+  return css`
+    color: ${base.base};
+  `
+}
+
 export interface ChromaticSurface {
   color?: Background
 }
